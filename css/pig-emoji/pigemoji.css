@@ -1,0 +1,96 @@
+:root {
+  --main-color: #ffc0cb;
+  --main-border: solid black 5px;
+  --secondary-border: solid black 2px;
+  --head-size: 200px;
+}
+
+.head {
+  width: var(--head-size);
+  height: var(--head-size);
+  background-color: var(--main-color);
+  border-radius: 100%; /* Changed from 100% to 50% for better circular shape */
+  position: relative; /* Corrected padding to position */
+  margin: calc(var(--head-size) / 10) auto; /* Centered horizontally using auto */
+  border: var(--main-border);
+}
+
+.ear {
+  --ear-size: calc(var(--head-size) / 4);
+  --ear-horizontal-offset: calc(
+    var(--head-size) / 8
+  ); /* Adjusted offset for better positioning */
+  width: var(--ear-size);
+  height: var(--ear-size);
+  background-color: var(--main-color);
+  border-radius: 100%;
+  border: var(--main-border);
+  position: absolute;
+  top: calc(-1 * var(--ear-size) / 8); /* Adjusted for correct alignment */
+  z-index: -1;
+}
+
+.ear.left {
+  left: calc(
+    -1 * var(--ear-horizontal-offset)
+  ); /* Proper negative positioning */
+}
+
+.ear.right {
+  right: calc(
+    -1 * var(--ear-horizontal-offset)
+  ); /* Proper negative positioning */
+}
+.face {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: auto;
+  width: var(--head-size);
+  height: var(--head-size);
+  margin: auto;
+}
+.eye {
+  --eye-size: calc(var(--head-size) / 4);
+  --eye-horizontal-offset: calc(var(--head-size) * 0.6);
+  width: var(--eye-size);
+  height: var(--eye-size);
+  border-radius: 100%;
+  background-color: white;
+  border: var(--secondary-border);
+  position: absolute;
+  top: calc(var(--head-size) / 5);
+  left: calc(var(--head-size) / 6);
+}
+
+.eye.left {
+  left: var(--eye-horizontal-offset);
+}
+.eye.right {
+  right: var(--ear-horizontal-offset);
+}
+
+.pupil {
+  --pupil-size: calc(var(--eye-size) / 2);
+  width: var(--pupil-size);
+  height: var(--pupil-size);
+  border-radius: 50%;
+  background-color: black;
+  margin: 0.8rem;
+}
+
+.nose {
+  width: calc(var(--nose-size) / 2);
+  height: calc(var(--nose-size) * 0.3);
+  background-color: #f57187;
+  border: 1px solid black;
+  position: absolute;
+  border-radius: 35%;
+  display: flex;
+  bottom: calc(var(--head-size) * 0.15);
+  justify-content: space-around;
+  align-items: center;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+}
