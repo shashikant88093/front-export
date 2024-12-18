@@ -41,7 +41,7 @@
     -1 * var(--ear-horizontal-offset)
   ); /* Proper negative positioning */
 }
-.face {
+/* .face {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -49,10 +49,10 @@
   width: var(--head-size);
   height: var(--head-size);
   margin: auto;
-}
+} */
 .eye {
   --eye-size: calc(var(--head-size) / 4);
-  --eye-horizontal-offset: calc(var(--head-size) * 0.6);
+  --eye-horizontal-offset: calc(var(--head-size) * 0.12);
   width: var(--eye-size);
   height: var(--eye-size);
   border-radius: 100%;
@@ -60,7 +60,10 @@
   border: var(--secondary-border);
   position: absolute;
   top: calc(var(--head-size) / 5);
-  left: calc(var(--head-size) / 6);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  /* left: calc(var(--head-size) / 6); */
 }
 
 .eye.left {
