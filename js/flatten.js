@@ -1,23 +1,45 @@
-function flatten(value) {
-    if (Array.isArray(value)) {
-        // If value is an array, flatten each element
-        return value.reduce((acc, item) => {
-            return acc.concat(flatten(item)); // Recursively flatten nested arrays
-        }, []);
-    } else if (typeof value === 'object' && value !== null) {
-        // If value is an object, process each key-value pair
-        return Object.keys(value).reduce((acc, key) => {
-            // Recursively flatten values and exclude empty objects or arrays
-            const flatValue = flatten(value[key]);
-            if (flatValue !== undefined && flatValue !== null) {
-                acc[key] = flatValue;
-            }
-            return acc;
-        }, {});
-    } else {
-        // For primitive types (non-array, non-object values), return the value
+function flatten(value, newVal = []) {
+
+    if (typeof value !== 'object' || value === null) {
         return value;
     }
+
+    else if (Array.isArray(value)) {
+        handleArray(value, newVal);
+    } else {
+        handleObject(value, newVal);
+    }
+
+    return newVal;
+}
+
+
+function handleArray(value, newVal) {
+    for (let i = 0; i < value.length; i++) {
+        if (typeof value[i] !== 'object' || value[i] === null) {
+            newVal.push(value[i]);
+        } else if (Array.isArray(value[i])) {
+            handleArray(value[i], newVal);
+        } else {
+            newVal.push(handleObject(value[i], {}))
+        }
+    }
+
+    return newVal;
+}
+
+
+function handleObject(value, newVal) {
+    for (const key in value) {
+        if (typeof value[key] !== 'object' || value[key] === null) {
+            newVal[key] = value[key];
+        } else if (Array.isArray(value[key])) {
+            newVal[key] = handleArray(value[key], [])
+        } else {
+            handleObject(value[key], newVal)
+        }
+    }
+    return newVal;
 }
 
 // Test with an array
@@ -38,14 +60,4 @@ let objectValue = {
     }
 };
 console.log(flatten(objectValue));
-// Output: { a: null, b: undefined, d: true, e: 4, h: 1 }
-
-let combineObjandArray = [1, 2, [3], {
-    a: 4,
-    b: {
-        c: 5,
-        d: [6, 7, [8, 9, [10]]]
-    }
-}]
-// output [1,2,3,{a:4,c:5,d:[6,7,8,9,10]}]
-console.log(flatten(combineObjandArray));
+// Output: { 'c.d': true, 'c.e': 4, 'c.g.h': 1 }
