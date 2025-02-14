@@ -1,0 +1,14 @@
+.cardButton{
+    display: flex;
+    justify-content: center;
+    /* padding: 2rem  ; */
+}
+.rowButton{
+    padding: 0rem .2rem
+
+}
+
+.columnButton{
+padding: auto;
+margin: auto;
+}
