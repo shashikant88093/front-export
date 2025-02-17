@@ -38,5 +38,5 @@ target.dispatchEvent("click"); // Logs: "Event triggered!"
 target.addEventListener("click", handleEvent1);
 target.dispatchEvent("click"); // Logs: "Event triggered!"
 
-// target.removeEventListener("click", handleEvent);
-// target.dispatchEvent("click"); // No output since listener was removed
+target.removeEventListener("click", handleEvent);
+target.dispatchEvent("click"); // No output since listener was removed
