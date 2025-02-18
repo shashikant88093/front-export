@@ -1,63 +1,60 @@
-function flatten(value, newVal = []) {
-
+function flatten(value) {
+    // Check if the value is a primitive (not an object or array)
     if (typeof value !== 'object' || value === null) {
         return value;
     }
 
-    else if (Array.isArray(value)) {
-        handleArray(value, newVal);
-    } else {
-        handleObject(value, newVal);
+    // If the value is an array, flatten it
+    if (Array.isArray(value)) {
+        return flattenArray(value);
     }
 
-    return newVal;
+    // If the value is an object, flatten it
+    return flattenObject(value);
 }
 
-
-function handleArray(value, newVal) {
-    for (let i = 0; i < value.length; i++) {
-        if (typeof value[i] !== 'object' || value[i] === null) {
-            newVal.push(value[i]);
-        } else if (Array.isArray(value[i])) {
-            handleArray(value[i], newVal);
+function flattenArray(input, flattened = []) {
+    // Iterate through each element in the array
+    input.forEach(item => {
+        if (Array.isArray(item)) {
+            // If item is an array, recursively flatten it
+            flattenArray(item, flattened);
+        } else if (typeof item === 'object' && item !== null) {
+            // If item is an object, flatten it and add to flattened array
+            flattened.push(flattenObject(item));
         } else {
-            newVal.push(handleObject(value[i], {}))
+            // Push primitive values directly into the flattened array
+            flattened.push(item);
         }
-    }
-
-    return newVal;
+    });
+    
+    return flattened;
 }
 
+function flattenObject(object) {
+    let flattenedObj = {};
+    
+    // Iterate over key-value pairs in the object
+    for (const key in object) {
+        const value = object[key];
+        const flattenedValue = flatten(value);
 
-function handleObject(value, newVal) {
-    for (const key in value) {
-        if (typeof value[key] !== 'object' || value[key] === null) {
-            newVal[key] = value[key];
-        } else if (Array.isArray(value[key])) {
-            newVal[key] = handleArray(value[key], [])
+        if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
+            // If value is an object, flatten it and merge it into the result
+            Object.assign(flattenedObj, flattenedValue);
         } else {
-            handleObject(value[key], newVal)
+            // Otherwise, directly assign to the flattened object
+            flattenedObj[key] = flattenedValue;
         }
     }
-    return newVal;
+
+    return flattenedObj;
 }
 
-// Test with an array
-let arrayValue = [1, 2, [3, 4, [], 5]];
-console.log(flatten(arrayValue)); // Output: [1, 2, 3, 4, 5]
-
-// Test with an object
-let objectValue = {
-    a: null,
-    b: undefined,
-    c: {
-        d: true,
-        e: 4,
-        f: {},
-        g: {
-            h: 1,
-        }
-    }
-};
-console.log(flatten(objectValue));
-// Output: { 'c.d': true, 'c.e': 4, 'c.g.h': 1 }
+// Sample usage:
+console.log(flatten(1)); // 1
+console.log(flatten([])); // []
+console.log(flatten([1, 2, [3, 4, [], 5]])); // [1, 2, 3, 4, 5]
+console.log(flatten({})); // {}
+console.log(flatten({ a: null, b: undefined, c: { d: true, e: 4, f: {}, g: { h: 5 }, }})); // { a: null, b: undefined, d: true, e: 4, h: 5 }
+console.log(flatten([1, 2, [3], { a: 4, b: { c: 5, d: [6, 7, [8, 9, [10]]] } }])); // [1, 2, 3, { a: 4, c: 5, d: [6, 7, 8, 9, 10] }]
