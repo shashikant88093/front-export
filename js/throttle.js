@@ -26,3 +26,10 @@ function throttle(callback, delay) {
 return throttledFunction
 
 }
+
+function someCallBack(){
+    console.log("I am throttle")
+}
+const object ={}
+object.throttle = throttle(someCallBack,3000)
+object.throttle()
