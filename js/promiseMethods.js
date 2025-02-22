@@ -61,8 +61,8 @@ Promise.myAll = function (promises) {
     return new Promise((resolve, reject) => {
         let countRejection = 0
         const results = []
-        promises.forEach((promise) => {
-            promise.then(value => {
+        promises.forEach((promise,i) => {
+            promise.then((value) => {
                 results[i] = value
                 countRejection++
                 if (countRejection === promises.length) {
