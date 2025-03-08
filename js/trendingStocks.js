@@ -14,10 +14,9 @@ async function trendingStocks(n) {
         symbolsResponse.json(),
         marketCapsResponse.json(),
     ]);
-
     const requestedSymbols = marketCaps
         .sort((stockA, stockB) => {
-            return stockA["market-cap"] - stockB["market-cap"];
+            return stockB["market-cap"] - stockA["market-cap"];
         })
         .slice(0, n)
         .map((marketCapsObj) => marketCapsObj.symbol);
@@ -31,13 +30,14 @@ async function trendingStocks(n) {
         symbols,
         marketCaps
     );
-
-    const stockData = prices.map(({symbol, ...rest})=>({
+//   console.log(namesAndMarketCapsBySymbol,"namesAndMarketCapsBySymbol")
+    const stockData = prices.map(({symbol, ...rest}) => ({
         symbol,
-        ...namesAndMarketCapsBySymbol[Symbol],
+        ...namesAndMarketCapsBySymbol[symbol],
         ...rest
-    }))
-    return stockData
+    }));
+    console.log(stockData, "stock data");
+    return stockData;
 }
 
 function getNamesAndMarketCapsBySymbol(symbols, marketCaps) {
@@ -53,3 +53,6 @@ function getNamesAndMarketCapsBySymbol(symbols, marketCaps) {
     return namesAndMarketCapsBySymbol;
 
 }
+
+
+console.log(trendingStocks(4))
