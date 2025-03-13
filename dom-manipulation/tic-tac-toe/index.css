@@ -1,0 +1,21 @@
+.Container{
+    margin: auto;
+    display: grid;
+    width: 300px;
+    height: auto;
+    background-color: gray;
+    color: white;
+    align-items: center;
+    text-align: center;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+table tbody tr td button{
+    padding: 20px;
+    background-color: brown;
+    border-radius: 5px;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
