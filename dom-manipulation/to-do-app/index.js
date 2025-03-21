@@ -22,8 +22,10 @@ ul.addEventListener("click", handleDelete);
 function handleDelete(event) {
     if (event.target.classList.contains("delete-button")) {
         const index = parseInt(event.target.dataset.index, 10);
-        listOfTask.splice(index, 1);
-        renderList();
+        if (!isNaN(index)) {
+            listOfTask.splice(index, 1);
+            renderList();
+        }
     }
 }
 
@@ -41,21 +43,21 @@ function renderList() {
     listOfTask.forEach((task, index) => {
         const li = document.createElement("li");
 
-        // Append task text properly
-        li.appendChild(document.createTextNode(task));
+        // Create <h2> for the task text
+        const h2 = document.createElement("h2");
+        h2.textContent = task;
 
-        // Create delete button
-        const span = document.createElement("span");
-        span.textContent = " X ";
-        span.classList.add("delete-button");
-        span.dataset.index = index;
+        li.appendChild(h2); // Add task inside <h2>
 
-        li.appendChild(span);
+        // Create delete button as <button> instead of <span>
+        const button = document.createElement("button");
+        button.textContent = "X"; // Delete text
+        button.classList.add("delete-button");
+        button.dataset.index = index;
+
+        li.appendChild(button); // Append delete button
         ul.appendChild(li);
     });
-
-    // 🔥 Debugging Assertion
-    console.assert(ul.children.length === listOfTask.length, `Expected ${listOfTask.length}, but got ${ul.children.length}`);
 }
 
 function handleChange(e) {
