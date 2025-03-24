@@ -1,0 +1,56 @@
+
+rapper{
+    display: flex;
+    flex-direction: column;
+}
+h1{
+  display: flex;
+  justify-content: center;  
+  flex-basis: 250px;
+  margin: 0;
+  background-color: #082969;
+  color: white;
+  padding: 12px;
+  user-select: none;
+  align-items: center;
+  font-size: 24px;
+  border-right: 5px solid black;
+
+}
+.tier-section{
+    display: flex;
+    border: 5px solid black;
+    min-height: 50px;
+}
+#unranked-section{
+    margin-top: 18px;
+}
+
+.drop-zone{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    flex-basis: 100%;
+    background-color: lightgrey;
+}
+
+#blue{
+    background-color: blue;
+}
+
+#red{
+    background-color: red;
+}
+#green{
+    background-color: green;
+}
+
+.item{
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    border: 2px solid black;
+    border-radius: 8px;
+    margin: 0 8px;
+    opacity: 0.999;
+}
