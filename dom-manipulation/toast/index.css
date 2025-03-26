@@ -1,0 +1,55 @@
+body{
+    display: flex;
+    justify-content: space-around;
+}
+
+#toasts{
+    flex-basis: 25%;
+}
+
+#inputs{
+    flex-basis: 60%;
+}
+
+.toast{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 12px;
+    border: 1px solid black;
+    padding: 12px;
+    border-radius: 8px;
+    animation: fade-in 0.5s linear;
+    font-size: 18px;
+}
+
+
+.error-toast{
+    background-color: red;
+
+}
+
+.success-toast{
+    background-color: green;
+}
+
+.message{
+    color: white;
+    font-weight: 800;
+}
+
+.cancel-button{
+    flex-shrink: 0;
+    background-color: none;
+    color: white;
+    border: 1px solid transparent;
+    border-radius: 100%;
+    height: 18px;
+    width: 18px;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 0;
+    margin-left: 4px;
+    transition: 0.5s;
+    cursor: pointer;
+}
