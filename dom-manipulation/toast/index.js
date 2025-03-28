@@ -1,16 +1,17 @@
-const messageContent = document.getElementById("message-content");
-const isCancelable = document.getElementById('cancelable').checked;
+// const messageContent = document.getElementById("message-content");
+const MIN_DURATION = 500;
+
 const addButton = document.getElementById('add-button');
 const clearButton = document.getElementById('clear-button');
 
-const MIN_DURATION = 500;
 
 clearButton.addEventListener('click', clearToasts);
 addButton.addEventListener('click', handleToast);
 
 // Show toast
 function handleToast() {
-    const message = messageContent.value;
+    const message = document.getElementById("message-content").value;
+    const isCancelable = document.getElementById('cancelable').checked;
     const type = document.querySelector('input[name="type"]:checked').value;
     const toast = createToast(message, isCancelable, type);
     document.getElementById('toasts').prepend(toast);
@@ -33,6 +34,7 @@ function getDuration() {
 
 function createToast(message, isCancelable, type) {
     const toast = document.createElement('div');
+    toast.classList.add('toast')
     toast.classList.add('toast', `${type}-toast`); // Combined class addition for brevity
 
     const paragraph = document.createElement('p');
